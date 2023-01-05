@@ -10,7 +10,7 @@ const JokePanel = (jokes) => {
   return (
     <header id="header">
 						<div className="logo">
-							<span className="icon fa-gem"></span>
+							<span className='icon'><i class='fas fa-hat-cowboy'></i></span>
 						</div>
 						<div className="content">
 							<div className="inner">
