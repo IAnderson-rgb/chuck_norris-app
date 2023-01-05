@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
+import JokePanel from '../components/JokePanel';
+import SearchBox from '../components/SearchBox';
+import Scroll from	'../components/Scroll';
+import ErrorBoundary from "../components/ErrorBoundary";
 import './App.css';
+
 
 class App extends Component {
 	constructor() {
@@ -31,16 +36,17 @@ class App extends Component {
 	}
 
   render() {
-    const {jokes, searchfield } = this.state;
+    // const {jokes, searchfield } = this.state;
   
-   return !jokes.length ? (
-    <h1>..Loading</h1>
-   ) : (
-    <div className='tc'>
-      <h1>Hi</h1>
-      {/* <Joke /> */}
-    </div>
-   )
+  //  return !jokes.length ? (
+	// 		<h1>..Loading</h1>
+	// 	) : (
+		return(
+			<div className='tc'>
+				<h1>Hi</h1>
+				<JokePanel />
+			</div>
+		);
   }
 
 }
