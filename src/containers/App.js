@@ -22,7 +22,7 @@ class App extends Component {
 			'https://api.chucknorris.io/jokes/search?query=test',
 		];
 
-		const getData = async function () {
+		const getData = async function (event) {
 			const data = await Promise.allSettled(
 				urls.map(async function (url) {
 					const response = await fetch(url);
@@ -38,15 +38,26 @@ class App extends Component {
 	}
 
 	componentDidUpdate() {}
-
+	
+	// onSearchChange = (event) => {
+	// 	this.setState({ searchfield: event.target.value });
+	// };
+	
 	render() {
 		const { jokes, searchfield } = this.state;
+		console.log('Looging jokes', jokes );
+		const objArray = [];
+		jokes.forEach((obj) => {
+			let { value } = obj;
+			objArray.push(value);
+		});
+		console.log('Whattt!', objArray);
 		return !jokes.length ? (
 			<h1>..Loading</h1>
 		) : (
 			<div className='tc'>
 				<Scroll>
-					<JokePanel />
+					<JokePanel jokes={objArray} newJoke={this.getData}/>
 					<SearchBox searchChange={this.onSearchChange} />
 				</Scroll>
 			</div>
