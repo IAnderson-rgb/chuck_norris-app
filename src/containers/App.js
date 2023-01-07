@@ -3,6 +3,7 @@ import JokePanel from '../components/JokePanel';
 import SearchBox from '../components/SearchBox';
 import Scroll from	'../components/Scroll';
 import ErrorBoundary from "../components/ErrorBoundary";
+
 import './App.css';
 
 
@@ -57,7 +58,7 @@ class App extends Component {
 		) : (
 			<div className='tc'>
 				<Scroll>
-					<JokePanel jokes={objArray} newJoke={this.getData}/>
+					<JokePanel jokes={objArray} />
 					<SearchBox searchChange={this.onSearchChange} />
 				</Scroll>
 			</div>

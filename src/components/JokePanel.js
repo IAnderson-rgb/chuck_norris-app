@@ -5,73 +5,34 @@ import '../assets/css/noscript.css';
 
 
 const JokePanel = (jokes) => {
-	console.log('JokePanel', jokes);
 	const randomJoke = jokes;
-	// const { categories, value } = jokes;
-
-	function getJoke(params) {
-		let newJoke = '';
-		if (params === randomJoke.jokes) {
-			const currentJoke = randomJoke.jokes[0];
-			console.log('Log 1', currentJoke);
-			return currentJoke;
-		} else {
-			newJoke = params;
-		}
-		console.log('Log 2', newJoke);
-		return newJoke;
-	}
-
-	async function fetchUsers() {
-		const resp = await fetch('https://api.chucknorris.io/jokes/random');
-		const data = await resp.json();
-		const jokeData = data.value;
-		console.log('You Clicked Reload', jokeData);
-		const updatedJoke = jokeData;
-		return getJoke(updatedJoke);
-		// return currentJoke
-	}
-
-	function addNewJokeAfterClick(e) {
-		if (e) {
-			fetchUsers();
-		}
-	}
+	const currentJoke = randomJoke.jokes[0];
 
 	return (
 		<header id='header'>
-			<div className='logo'>
+			<div className='logo quote-container' id='quote-container'>
 				<span className='icon'>
-					<i className='fas fa-hat-cowboy'></i>
+				Brain<i className='fa fa-brain'>{` Extract`}</i>
 				</span>
 			</div>
 			<div className='content'>
-				<div id='display' className='inner'>
-					<h1>{getJoke(randomJoke.jokes)}</h1>
-					<p>
-						A fully responsive site template designed by{' '}
-						<a href='https://html5up.net'>HTML5 UP</a> and released
-						<br />
-						for free under the{' '}
-						<a href='https://html5up.net/license'>Creative Commons</a> license.
-					</p>
+				<div className='quote-text inner'>
+					<h1 id='quote'>{currentJoke}</h1>
+					<p>{/* place category vule here */}</p>
+					<div className="loader" id="loader"></div>
 				</div>
 			</div>
 			<nav>
 				<ul>
 					<li>
-						<a href='#intro'>Intro</a>
-					</li>
-					<li>
-						<a href='#work'>Work</a>
-					</li>
-					<li>
-						<a href='#about'>About</a>
-					</li>
-					<li>
-						<a href='#update' onClick={addNewJokeAfterClick}>
-							Update
+						<a href='#intro' className='twitter-button' id='twitter' title="Tweet This!">
+							<span className='icon'>
+								<i className='fab fa-twitter'></i>
+							</span>
 						</a>
+					</li>
+					<li id='new-quote'>
+						<a href='#update'>New Joke</a>
 					</li>
 				</ul>
 			</nav>
