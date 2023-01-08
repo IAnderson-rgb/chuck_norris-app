@@ -47,7 +47,9 @@ class App extends Component {
 		return (
 			<div className='tc'>
 				<Scroll>
-					<JokePanel />
+					<ErrorBoundary>
+						<JokePanel />
+					</ErrorBoundary>
 					<SearchBox searchChange={this.onSearchChange} />
 				</Scroll>
 			</div>
