@@ -15,6 +15,8 @@ class App extends Component {
 		};
 	}
 
+
+	
 	async componentDidMount() {
 		// const urls = [
 		// 	'https://api.chucknorris.io/jokes/random',
@@ -35,6 +37,7 @@ class App extends Component {
 		// };
 
 		this.setState({});
+		
 	}
 
 	componentDidUpdate() {}

@@ -7,10 +7,32 @@ import '../assets/css/noscript.css';
 const JokePanel = () => {
 	let apiJoke = [];
 	const quoteContainer = document.getElementById('quote-container');
-	const quoteText = document.getElementById('quote');
+	const JokeText = document.getElementById('quote');
 	const twitterBtn = document.getElementById('twitter');
-	const newQuoteBtn = document.getElementById('new-quote');
+	const newJokeBtn = document.getElementById('new-quote');
 	const loader = document.getElementById('loader');
+ const voiceList = document.querySelector('#voiceList');
+
+// function toggleButton() {
+// 	button.disabled = !button.disabled;
+// }
+var tts = window.speechSynthesis;
+	var voices =[];
+
+	function GetVoices() {
+		voices = tts.getVoices();
+		voiceList.innerHTML = '';
+		voices.forEach((voice) => {
+			var listItem = document.createElement('option');
+			listItem.textContent = voice.name;
+			listItem.setAttribute('data-lang', voice.lang);
+		})
+	}
+
+function tellMe(joke) {
+	
+
+}
 
 	function showLoadingSpinner() {
 		if (loader.hidden == null) {
@@ -30,49 +52,64 @@ const JokePanel = () => {
 	}
 
 	// Show new quote
-	function newQuote(params) {
+	function newJokes(params) {
 		showLoadingSpinner();
 		console.log('Params', params);
 		if (params) {
-			quoteText.textContent = params.value;
+			JokeText.textContent = params.value;
 			hideLoadingSpinner();
 		}
 	}
 
 	// Get quotes from API
-	async function getQuotes() {
+	async function getJokes() {
 		showLoadingSpinner();
+		let joke = '';
 		const apiUrl = 'https://api.chucknorris.io/jokes/random';
 		try {
 			const response = await fetch(apiUrl);
 			apiJoke = await response.json();
-			newQuote(apiJoke);
+			newJokes(apiJoke);
+
+			joke = apiJoke.joke;
+			// Text-to-Speech
+			tellMe(joke);
+			// Disable Button
+			// toggleButton();
 		} catch (error) {
 			alert(error);
 		}
 	}
 
-	function tweetQuote() {
-		const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent}`;
+	function tweetJoke() {
+		const twitterUrl = `https://twitter.com/intent/tweet?text=${JokeText.textContent}`;
 		window.open(twitterUrl, '_blank');
 	}
 
-	if (newQuoteBtn) {
-		newQuoteBtn.addEventListener('click', getQuotes);
+// // button.addEventListener('click', getJokes);
+// audioElement.addEventListener('ended', toggleButton);
+
+	if (newJokeBtn) {
+		newJokeBtn.addEventListener('click', getJokes);
 	}
 
 	if (twitterBtn) {
-		twitterBtn.addEventListener('click', tweetQuote);
+		twitterBtn.addEventListener('click', tweetJoke);
 	}
 
 	// On load
-	getQuotes();
+	getJokes();
 
 	return (
 		<header id='header'>
 			<div className='logo quote-container'>
 				<span className='icon p2'>
 					Brain<i className='top-pa4 fa fa-brain'>{` Extract`}</i>
+				</span>
+			</div>
+			<div className='logo'>
+				<span className='icon'>
+					<i className='fas fa-hat-cowboy'></i>
 				</span>
 			</div>
 			<div className='content'>
@@ -97,9 +134,12 @@ const JokePanel = () => {
 						</a>
 					</li>
 					<li>
-						<a id='new-quote' href='#update'>
+						<a id='new-quote button' href='#update'>
 							New
 						</a>
+						<div>
+							Select Voice: <select name='' id='voiceList'></select>
+						</div>
 					</li>
 				</ul>
 			</nav>
