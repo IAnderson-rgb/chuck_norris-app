@@ -12,12 +12,30 @@ const JokePanel = () => {
 	const newJokeBtn = document.getElementById('new-quote');
 	const loader = document.getElementById('loader');
  const voiceList = document.querySelector('#voiceList');
+ const btnSpeak = document.querySelector('#btnSpeak');
 
 // function toggleButton() {
 // 	button.disabled = !button.disabled;
 // }
 var tts = window.speechSynthesis;
 	var voices =[];
+
+GetVoices();
+
+if (speechSynthesis !== undefined){
+	speechSynthesis.onvoiceschanged = GetVoices;
+}
+	
+btnSpeak.addEventListener('click', () => {
+	const toSpeak = new speechSynthesis(getJokes())
+	const selectedVoiceName = voiceList.selectedOption[0].getAttribute('data-name');
+	voices.forEach((voice)=> {
+		if (voice.name === selectedVoiceName) {
+			toSpeak.voice = voice;
+		}
+	});
+	tts.speak(toSpeak);
+});
 
 	function GetVoices() {
 		voices = tts.getVoices();
@@ -26,13 +44,11 @@ var tts = window.speechSynthesis;
 			var listItem = document.createElement('option');
 			listItem.textContent = voice.name;
 			listItem.setAttribute('data-lang', voice.lang);
-		})
+			listItem.setAttribute('data-lang', voice.name);
+			voiceList.appendChild(listItem);
+		});
+		voiceList.selectedIndex = 0;
 	}
-
-function tellMe(joke) {
-	
-
-}
 
 	function showLoadingSpinner() {
 		if (loader.hidden == null) {
@@ -70,12 +86,8 @@ function tellMe(joke) {
 			const response = await fetch(apiUrl);
 			apiJoke = await response.json();
 			newJokes(apiJoke);
-
 			joke = apiJoke.joke;
-			// Text-to-Speech
-			tellMe(joke);
-			// Disable Button
-			// toggleButton();
+			return joke;
 		} catch (error) {
 			alert(error);
 		}
@@ -134,7 +146,7 @@ function tellMe(joke) {
 						</a>
 					</li>
 					<li>
-						<a id='new-quote button' href='#update'>
+						<a id='new-quote btnSpeak' href='#update'>
 							New
 						</a>
 						<div>

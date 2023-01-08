@@ -50,9 +50,9 @@ class App extends Component {
 		return (
 			<div className='tc'>
 				<Scroll>
-					<ErrorBoundary>
+					{/* <ErrorBoundary> */}
 						<JokePanel />
-					</ErrorBoundary>
+					{/* </ErrorBoundary> */}
 					<SearchBox searchChange={this.onSearchChange} />
 				</Scroll>
 			</div>
