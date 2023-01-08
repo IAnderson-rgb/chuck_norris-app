@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Title from '../components/Title';
 import JokePanel from '../components/JokePanel';
 import SearchBox from '../components/SearchBox';
 import Scroll from	'../components/Scroll';
@@ -15,43 +16,42 @@ class App extends Component {
 		};
 	}
 
-	async componentDidMount() {
-		const urls = [
-			'https://api.chucknorris.io/jokes/random',
-			'https://api.chucknorris.io/jokes/categories',
-			'https://api.chucknorris.io/jokes/search?query=test',
-		];
-
-		const getData = async function () {
-			const data = await Promise.allSettled(
-				urls.map(async function (url) {
-					const response = await fetch(url);
-					const resp = await response.json();
-					return resp;
-				})
-			);
-
-			return data.map(({ value }) => value);
-		};
-
-		this.setState({ jokes: await getData() });
+	  componentDidMount() {
+		try {
+			fetch('https://api.chucknorris.io/jokes/random')
+			.then((response) => response.json())
+			.then((jokes) => this.setState({ jokes: jokes }));
+			
+		} catch (error) {
+			alert(error);
+		}
+		
 	}
+
+onClick = (event) => {
+	this.setState({jokes: this.componentDidMount})
+}
 
 	componentDidUpdate() {}
 
 	render() {
 		const { jokes, searchfield } = this.state;
-		return !jokes.length ? (
+		return !jokes ? (
 			<h1>..Loading</h1>
 		) : (
 			<div className='tc'>
 				<Scroll>
-					<JokePanel />
+					<header id='header'>
+						<Title />
+						<JokePanel jokes={jokes}/>
+					</header>
 					<SearchBox searchChange={this.onSearchChange} />
 				</Scroll>
 			</div>
 		);
 	}
 }
+
+
 
 export default App;
