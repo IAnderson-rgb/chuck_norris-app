@@ -11,44 +11,12 @@ const JokePanel = () => {
 	const twitterBtn = document.getElementById('twitter');
 	const newJokeBtn = document.getElementById('new-quote');
 	const loader = document.getElementById('loader');
- const voiceList = document.querySelector('#voiceList');
- const btnSpeak = document.querySelector('#btnSpeak');
+	const voiceList = document.getElementById('voiceList');
+	const btnSpeak = document.getElementById('btnSpeak');
 
-// function toggleButton() {
-// 	button.disabled = !button.disabled;
-// }
-var tts = window.speechSynthesis;
-	var voices =[];
-
-GetVoices();
-
-if (speechSynthesis !== undefined){
-	speechSynthesis.onvoiceschanged = GetVoices;
-}
-	
-btnSpeak.addEventListener('click', () => {
-	const toSpeak = new speechSynthesis(getJokes())
-	const selectedVoiceName = voiceList.selectedOption[0].getAttribute('data-name');
-	voices.forEach((voice)=> {
-		if (voice.name === selectedVoiceName) {
-			toSpeak.voice = voice;
-		}
-	});
-	tts.speak(toSpeak);
-});
-
-	function GetVoices() {
-		voices = tts.getVoices();
-		voiceList.innerHTML = '';
-		voices.forEach((voice) => {
-			var listItem = document.createElement('option');
-			listItem.textContent = voice.name;
-			listItem.setAttribute('data-lang', voice.lang);
-			listItem.setAttribute('data-lang', voice.name);
-			voiceList.appendChild(listItem);
-		});
-		voiceList.selectedIndex = 0;
-	}
+	// function toggleButton() {
+	// 	button.disabled = !button.disabled;
+	// }
 
 	function showLoadingSpinner() {
 		if (loader.hidden == null) {
@@ -98,15 +66,48 @@ btnSpeak.addEventListener('click', () => {
 		window.open(twitterUrl, '_blank');
 	}
 
-// // button.addEventListener('click', getJokes);
-// audioElement.addEventListener('ended', toggleButton);
+	// // button.addEventListener('click', getJokes);
+	// audioElement.addEventListener('ended', toggleButton);
 
 	if (newJokeBtn) {
-		newJokeBtn.addEventListener('click', getJokes);
+		newJokeBtn.addEventListener('click', getJokes, GetVoices);
 	}
 
 	if (twitterBtn) {
 		twitterBtn.addEventListener('click', tweetJoke);
+	}
+
+	let tts = window.speechSynthesis;
+	let voices = [];
+
+	if (speechSynthesis !== undefined) {
+		speechSynthesis.onvoiceschanged = GetVoices;
+	}
+
+	btnSpeak.addEventListener('click', () => {
+		const toSpeak = new speechSynthesis(getJokes());
+		console.log('toSpeak', toSpeak);
+		const selectedVoiceName =
+			voiceList.selectedOption[0].getAttribute('data-name');
+		voices.forEach((voice) => {
+			if (voice.name === selectedVoiceName) {
+				toSpeak.voice = voice;
+			}
+		});
+		tts.speak(toSpeak);
+	});
+
+	function GetVoices() {
+		voices = tts.getVoices();
+		voiceList.innerHTML = '';
+		voices.forEach((voice) => {
+			var listItem = document.createElement('option');
+			listItem.textContent = voice.name;
+			listItem.setAttribute('data-lang', voice.lang);
+			listItem.setAttribute('data-lang', voice.name);
+			voiceList.appendChild(listItem);
+		});
+		voiceList.selectedIndex = 0;
 	}
 
 	// On load
@@ -145,10 +146,8 @@ btnSpeak.addEventListener('click', () => {
 							<i className='fab fa-twitter'> </i>
 						</a>
 					</li>
-					<li>
-						<a id='new-quote btnSpeak' href='#update'>
-							New
-						</a>
+					<li id='new-quote btnSpeak'>
+						<a href='#update'>New</a>
 						<div>
 							Select Voice: <select name='' id='voiceList'></select>
 						</div>
