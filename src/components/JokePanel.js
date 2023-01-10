@@ -11,10 +11,12 @@ const JokePanel = () => {
 	const twitterBtn = document.getElementById('twitter');
 	const newJokeBtn = document.getElementById('new-quote');
 	const loader = document.getElementById('loader');
+	const speakBtn = document.getElementById('btn-speak');
+	let jokeText = '';
 
 	// On load
 	getJokes();
-
+	// Get jokes from API
 	async function getJokes() {
 		showLoadingSpinner();
 		let joke = '';
@@ -23,7 +25,8 @@ const JokePanel = () => {
 			const response = await fetch(apiUrl);
 			apiJoke = await response.json();
 			joke = await newJokes(apiJoke);
-			tellJoke(joke);
+			jokeText = joke;
+			tellJoke(jokeText);
 		} catch (error) {
 			alert(error);
 		}
@@ -33,13 +36,13 @@ const JokePanel = () => {
 	const synth = window.speechSynthesis;
 
 	const voiceSelect = document.querySelector('select');
-	
+
 	let voices = [];
-	
+
 	function populateVoiceList() {
 		voices = synth.getVoices();
-	
-		for (let i = 0; i < voices.length ; i++) {
+
+		for (let i = 0; i < voices.length; i++) {
 			const option = document.createElement('option');
 			option.textContent = `${voices[i].name} (${voices[i].lang})`;
 			option.setAttribute('data-lang', voices[i].lang);
@@ -47,27 +50,24 @@ const JokePanel = () => {
 			voiceSelect.appendChild(option);
 		}
 	}
-	
+
 	populateVoiceList();
 	if (speechSynthesis.onvoiceschanged !== undefined) {
 		speechSynthesis.onvoiceschanged = populateVoiceList;
 	}
-	
-		function tellJoke(params) {
-			console.log('Joke:', params);
-		const utterThis = new SpeechSynthesisUtterance(params);
-		const selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
-		for (let i = 0; i < voices.length ; i++) {
+
+	function tellJoke(params) {
+		console.log('Joke:', jokeText);
+		const utterThis = new SpeechSynthesisUtterance('Joke goes here');
+		const selectedOption =
+			voiceSelect.selectedOptions[0].getAttribute('data-name');
+		for (let i = 0; i < voices.length; i++) {
 			if (voices[i].name === selectedOption) {
 				utterThis.voice = voices[i];
 			}
 		}
 		synth.speak(utterThis);
-		}
-		
-	
-		// inputTxt.blur();
-	
+	}
 
 	function showLoadingSpinner() {
 		if (loader.hidden == null) {
@@ -95,13 +95,17 @@ const JokePanel = () => {
 		}
 	}
 
-	// Get quotes from API
-
-
 	function tweetJoke() {
 		const twitterUrl = `https://twitter.com/intent/tweet?text=${JokeText.textContent}`;
 		window.open(twitterUrl, '_blank');
 	}
+
+	if (speakBtn) {
+		speakBtn.onclick = (event) => {
+			tellJoke(jokeText);
+		}
+	}
+	
 
 	if (newJokeBtn) {
 		newJokeBtn.addEventListener('click', getJokes);
@@ -110,7 +114,6 @@ const JokePanel = () => {
 	if (twitterBtn) {
 		twitterBtn.addEventListener('click', tweetJoke);
 	}
-
 
 	return (
 		<header id='header'>
@@ -121,7 +124,9 @@ const JokePanel = () => {
 			</div>
 			<div className='logo'>
 				<span className='icon'>
-					<i className='fas fa-hat-cowboy'></i>
+					<a href='#speak' id='btn-speak'>
+						<i className='fas fa-hat-cowboy grow'></i>
+					</a>
 				</span>
 			</div>
 			<div className='content'>
@@ -149,7 +154,7 @@ const JokePanel = () => {
 						<a href='#update'>New</a>
 					</li>
 					<li>
-					<div>
+						<div>
 							Select Voice: <select name='' id='voiceList'></select>
 						</div>
 					</li>

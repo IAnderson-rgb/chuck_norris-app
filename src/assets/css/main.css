@@ -928,6 +928,13 @@ input, select, textarea {
 					background-color: rgba(255, 255, 255, 0.175);
 				}
 
+				#btn-speak:hover {
+					background-color: rgba(255, 255, 255, 0.075);
+					background-size: 100%;
+					border-radius: 100%;
+					padding: 45px;
+				}
+
 /* Table */
 
 	.table-wrapper {
