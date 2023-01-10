@@ -4,31 +4,159 @@ import '../assets/css/main.css';
 import '../assets/css/noscript.css';
 
 
-const JokePanel = (jokes) => {
-  const { categories, value } = jokes;
+const JokePanel = () => {
+	let apiJoke = [];
+	const quoteContainer = document.getElementById('quote-container');
+	const JokeText = document.getElementById('quote');
+	const twitterBtn = document.getElementById('twitter');
+	const newJokeBtn = document.getElementById('new-quote');
+	const loader = document.getElementById('loader');
 
-  return (
-    <header id="header">
-						<div className="logo">
-							<span className='icon'><i className='fas fa-hat-cowboy'></i></span>
+	// On load
+	getJokes();
+
+	async function getJokes() {
+		showLoadingSpinner();
+		let joke = '';
+		const apiUrl = 'https://api.chucknorris.io/jokes/random';
+		try {
+			const response = await fetch(apiUrl);
+			apiJoke = await response.json();
+			joke = await newJokes(apiJoke);
+			tellJoke(joke);
+		} catch (error) {
+			alert(error);
+		}
+	}
+
+	// Voice //
+	const synth = window.speechSynthesis;
+
+	const voiceSelect = document.querySelector('select');
+	
+	let voices = [];
+	
+	function populateVoiceList() {
+		voices = synth.getVoices();
+	
+		for (let i = 0; i < voices.length ; i++) {
+			const option = document.createElement('option');
+			option.textContent = `${voices[i].name} (${voices[i].lang})`;
+			option.setAttribute('data-lang', voices[i].lang);
+			option.setAttribute('data-name', voices[i].name);
+			voiceSelect.appendChild(option);
+		}
+	}
+	
+	populateVoiceList();
+	if (speechSynthesis.onvoiceschanged !== undefined) {
+		speechSynthesis.onvoiceschanged = populateVoiceList;
+	}
+	
+		function tellJoke(params) {
+			console.log('Joke:', params);
+		const utterThis = new SpeechSynthesisUtterance(params);
+		const selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+		for (let i = 0; i < voices.length ; i++) {
+			if (voices[i].name === selectedOption) {
+				utterThis.voice = voices[i];
+			}
+		}
+		synth.speak(utterThis);
+		}
+		
+	
+		// inputTxt.blur();
+	
+
+	function showLoadingSpinner() {
+		if (loader.hidden == null) {
+			loader.hidden = false;
+			quoteContainer.hidden = true;
+		} else {
+			loader.hidden = false;
+			quoteContainer.hidden = true;
+		}
+	}
+
+	function hideLoadingSpinner() {
+		if (!loader.hidden) {
+			loader.hidden = true;
+			quoteContainer.hidden = false;
+		}
+	}
+
+	// Show new quote
+	function newJokes(params) {
+		showLoadingSpinner();
+		if (params) {
+			JokeText.textContent = params.value;
+			hideLoadingSpinner();
+		}
+	}
+
+	// Get quotes from API
+
+
+	function tweetJoke() {
+		const twitterUrl = `https://twitter.com/intent/tweet?text=${JokeText.textContent}`;
+		window.open(twitterUrl, '_blank');
+	}
+
+	if (newJokeBtn) {
+		newJokeBtn.addEventListener('click', getJokes);
+	}
+
+	if (twitterBtn) {
+		twitterBtn.addEventListener('click', tweetJoke);
+	}
+
+
+	return (
+		<header id='header'>
+			<div className='logo quote-container'>
+				<span className='icon p2'>
+					Brain<i className='top-pa4 fa fa-brain'>{` Extract`}</i>
+				</span>
+			</div>
+			<div className='logo'>
+				<span className='icon'>
+					<i className='fas fa-hat-cowboy'></i>
+				</span>
+			</div>
+			<div className='content'>
+				<div className='quote-text inner'>
+					<h1 id='quote-container'>
+						<span id='quote'></span>
+					</h1>
+					<div className='loader' id='loader'></div>
+					<p>{/* place category vule here */}</p>
+				</div>
+			</div>
+			<nav>
+				<ul>
+					<li>
+						<a
+							id='twitter'
+							href='#intro'
+							className='twitter-button'
+							title='Tweet This!'
+						>
+							<i className='fab fa-twitter'> </i>
+						</a>
+					</li>
+					<li id='new-quote'>
+						<a href='#update'>New</a>
+					</li>
+					<li>
+					<div>
+							Select Voice: <select name='' id='voiceList'></select>
 						</div>
-						<div className="content">
-							<div className="inner">
-								<h1>Dimension</h1>
-								<p>A fully responsive site template designed by <a href="https://html5up.net">HTML5 UP</a> and released<br />
-								for free under the <a href="https://html5up.net/license">Creative Commons</a> license.</p>
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#intro">Intro</a></li>
-								<li><a href="#work">Work</a></li>
-								<li><a href="#about">About</a></li>
-								<li><a href="#contact">Contact</a></li>
-							</ul>
-						</nav>
-					</header>
-  )
-}
+					</li>
+				</ul>
+			</nav>
+		</header>
+	);
+};
 
 export default JokePanel;

@@ -15,38 +15,44 @@ class App extends Component {
 		};
 	}
 
+
+	
 	async componentDidMount() {
-		const urls = [
-			'https://api.chucknorris.io/jokes/random',
-			'https://api.chucknorris.io/jokes/categories',
-			'https://api.chucknorris.io/jokes/search?query=test',
-		];
+		// const urls = [
+		// 	'https://api.chucknorris.io/jokes/random',
+		// 	'https://api.chucknorris.io/jokes/categories',
+		// 	'https://api.chucknorris.io/jokes/search?query=test',
+		// ];
 
-		const getData = async function () {
-			const data = await Promise.allSettled(
-				urls.map(async function (url) {
-					const response = await fetch(url);
-					const resp = await response.json();
-					return resp;
-				})
-			);
+		// const getData = async function (event) {
+		// 	const data = await Promise.allSettled(
+		// 		urls.map(async function (url) {
+		// 			const response = await fetch(url);
+		// 			const resp = await response.json();
+		// 			return resp;
+		// 		})
+		// 	);
 
-			return data.map(({ value }) => value);
-		};
+		// 	return data.map(({ value }) => value);
+		// };
 
-		this.setState({ jokes: await getData() });
+		this.setState({});
+		
 	}
 
 	componentDidUpdate() {}
 
+	// onSearchChange = (event) => {
+	// 	this.setState({ searchfield: event.target.value });
+	// };
+
 	render() {
-		const { jokes, searchfield } = this.state;
-		return !jokes.length ? (
-			<h1>..Loading</h1>
-		) : (
+		return (
 			<div className='tc'>
 				<Scroll>
-					<JokePanel />
+					{/* <ErrorBoundary> */}
+						<JokePanel />
+					{/* </ErrorBoundary> */}
 					<SearchBox searchChange={this.onSearchChange} />
 				</Scroll>
 			</div>
