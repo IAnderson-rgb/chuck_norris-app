@@ -11,12 +11,63 @@ const JokePanel = () => {
 	const twitterBtn = document.getElementById('twitter');
 	const newJokeBtn = document.getElementById('new-quote');
 	const loader = document.getElementById('loader');
-	const voiceList = document.getElementById('voiceList');
-	const btnSpeak = document.getElementById('btnSpeak');
 
-	// function toggleButton() {
-	// 	button.disabled = !button.disabled;
-	// }
+	// On load
+	getJokes();
+
+	async function getJokes() {
+		showLoadingSpinner();
+		let joke = '';
+		const apiUrl = 'https://api.chucknorris.io/jokes/random';
+		try {
+			const response = await fetch(apiUrl);
+			apiJoke = await response.json();
+			joke = await newJokes(apiJoke);
+			tellJoke(joke);
+		} catch (error) {
+			alert(error);
+		}
+	}
+
+	// Voice //
+	const synth = window.speechSynthesis;
+
+	const voiceSelect = document.querySelector('select');
+	
+	let voices = [];
+	
+	function populateVoiceList() {
+		voices = synth.getVoices();
+	
+		for (let i = 0; i < voices.length ; i++) {
+			const option = document.createElement('option');
+			option.textContent = `${voices[i].name} (${voices[i].lang})`;
+			option.setAttribute('data-lang', voices[i].lang);
+			option.setAttribute('data-name', voices[i].name);
+			voiceSelect.appendChild(option);
+		}
+	}
+	
+	populateVoiceList();
+	if (speechSynthesis.onvoiceschanged !== undefined) {
+		speechSynthesis.onvoiceschanged = populateVoiceList;
+	}
+	
+		function tellJoke(params) {
+			console.log('Joke:', params);
+		const utterThis = new SpeechSynthesisUtterance(params);
+		const selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+		for (let i = 0; i < voices.length ; i++) {
+			if (voices[i].name === selectedOption) {
+				utterThis.voice = voices[i];
+			}
+		}
+		synth.speak(utterThis);
+		}
+		
+	
+		// inputTxt.blur();
+	
 
 	function showLoadingSpinner() {
 		if (loader.hidden == null) {
@@ -38,7 +89,6 @@ const JokePanel = () => {
 	// Show new quote
 	function newJokes(params) {
 		showLoadingSpinner();
-		console.log('Params', params);
 		if (params) {
 			JokeText.textContent = params.value;
 			hideLoadingSpinner();
@@ -46,72 +96,21 @@ const JokePanel = () => {
 	}
 
 	// Get quotes from API
-	async function getJokes() {
-		showLoadingSpinner();
-		let joke = '';
-		const apiUrl = 'https://api.chucknorris.io/jokes/random';
-		try {
-			const response = await fetch(apiUrl);
-			apiJoke = await response.json();
-			newJokes(apiJoke);
-			joke = apiJoke.joke;
-			return joke;
-		} catch (error) {
-			alert(error);
-		}
-	}
+
 
 	function tweetJoke() {
 		const twitterUrl = `https://twitter.com/intent/tweet?text=${JokeText.textContent}`;
 		window.open(twitterUrl, '_blank');
 	}
 
-	// // button.addEventListener('click', getJokes);
-	// audioElement.addEventListener('ended', toggleButton);
-
 	if (newJokeBtn) {
-		newJokeBtn.addEventListener('click', getJokes, GetVoices);
+		newJokeBtn.addEventListener('click', getJokes);
 	}
 
 	if (twitterBtn) {
 		twitterBtn.addEventListener('click', tweetJoke);
 	}
 
-	let tts = window.speechSynthesis;
-	let voices = [];
-
-	if (speechSynthesis !== undefined) {
-		speechSynthesis.onvoiceschanged = GetVoices;
-	}
-
-	btnSpeak.addEventListener('click', () => {
-		const toSpeak = new speechSynthesis(getJokes());
-		console.log('toSpeak', toSpeak);
-		const selectedVoiceName =
-			voiceList.selectedOption[0].getAttribute('data-name');
-		voices.forEach((voice) => {
-			if (voice.name === selectedVoiceName) {
-				toSpeak.voice = voice;
-			}
-		});
-		tts.speak(toSpeak);
-	});
-
-	function GetVoices() {
-		voices = tts.getVoices();
-		voiceList.innerHTML = '';
-		voices.forEach((voice) => {
-			var listItem = document.createElement('option');
-			listItem.textContent = voice.name;
-			listItem.setAttribute('data-lang', voice.lang);
-			listItem.setAttribute('data-lang', voice.name);
-			voiceList.appendChild(listItem);
-		});
-		voiceList.selectedIndex = 0;
-	}
-
-	// On load
-	getJokes();
 
 	return (
 		<header id='header'>
@@ -146,9 +145,11 @@ const JokePanel = () => {
 							<i className='fab fa-twitter'> </i>
 						</a>
 					</li>
-					<li id='new-quote btnSpeak'>
+					<li id='new-quote'>
 						<a href='#update'>New</a>
-						<div>
+					</li>
+					<li>
+					<div>
 							Select Voice: <select name='' id='voiceList'></select>
 						</div>
 					</li>
