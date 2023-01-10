@@ -4,10 +4,10 @@ import '../assets/css/main.css';
 import '../assets/css/noscript.css';
 
 
-const NewBtn = () => {
+function NewBtn ({clickNewJoke}) {
 	
   return (
-		<li>
+		<li onClick={clickNewJoke}>
 			<a id='new-quote' href='#update'>
 				New
 			</a>

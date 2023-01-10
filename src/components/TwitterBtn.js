@@ -3,7 +3,7 @@ import '../assets/css/fontawesome-all.min.css';
 import '../assets/css/main.css';
 import '../assets/css/noscript.css';
 
-const Twitter = () => {
+const TwitterBtn = () => {
 	
 	return (
 		<li>
@@ -19,4 +19,4 @@ const Twitter = () => {
 	);
 };
 
-export default Twitter;
+export default TwitterBtn;

@@ -2,11 +2,10 @@ import React from "react";
 import '../assets/css/fontawesome-all.min.css';
 import '../assets/css/main.css';
 import '../assets/css/noscript.css';
-import Nav from "./Nav";
 
 
-const JokePanel = ({jokes}) => {
-	const jokeString = jokes.value;
+
+const JokePanel = (props) => {
 	return (
 		<header id='header'>
 			<div className='logo'>
@@ -16,11 +15,10 @@ const JokePanel = ({jokes}) => {
 			</div>
 			<div className='content'>
 				<div className='quote-text inner'>
-					<h1>{jokeString}</h1>
+					<h1>{props.joke}</h1>
 					<p>{/* place category vule here */}</p>
 				</div>
 			</div>
-			<Nav />
 		</header>
 	);
 }
