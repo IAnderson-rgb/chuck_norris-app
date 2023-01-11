@@ -7,8 +7,12 @@ import '../assets/css/noscript.css';
 function NewBtn ({clickNewJoke}) {
 	
   return (
-		<li onClick={clickNewJoke}>
-			<a id='new-quote' href='#update'>
+		<li >
+			<a 
+			id='new-quote' 
+			href='#update' 
+			onClick={clickNewJoke}
+			>
 				New
 			</a>
 		</li>

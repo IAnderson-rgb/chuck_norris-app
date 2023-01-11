@@ -22,7 +22,6 @@ class App extends PureComponent {
 	}
 
 	componentDidMount() {
-		console.log('componentDidMount');
 		try {
 			fetch(apiUrl)
 				.then((resp) => resp.json())
@@ -32,7 +31,7 @@ class App extends PureComponent {
 		}
 	}
 
-	onClicknewJoke = (e) => {
+	onClicknewJoke = () => {
 		try {
 			fetch(apiUrl)
 				.then((resp) => resp.json())
@@ -46,8 +45,8 @@ class App extends PureComponent {
 		const twitterUrl = `https://twitter.com/intent/tweet?text=${this.state.jokeText}`;
 		window.open(twitterUrl, '_blank');
 	};
-
-	// componentDidUpdate() {}
+	
+	componentDidUpdate() {}
 
 	render() {
 		const { jokeText } = this.state;
