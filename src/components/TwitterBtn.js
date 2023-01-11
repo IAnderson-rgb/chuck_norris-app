@@ -3,7 +3,7 @@ import '../assets/css/fontawesome-all.min.css';
 import '../assets/css/main.css';
 import '../assets/css/noscript.css';
 
-const TwitterBtn = () => {
+const TwitterBtn = ({tweetJoke}) => {
 	
 	return (
 		<li>
@@ -12,6 +12,7 @@ const TwitterBtn = () => {
 				href='#intro'
 				className='twitter-button'
 				title='Tweet This!'
+				onClick={tweetJoke}
 			>
 				<i className='fab fa-twitter'> </i>
 			</a>

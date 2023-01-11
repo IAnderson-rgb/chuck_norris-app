@@ -8,11 +8,6 @@ import '../assets/css/noscript.css';
 const JokePanel = (props) => {
 	return (
 		<header id='header'>
-			<div className='logo'>
-				<span className='icon'>
-					<i className='fas fa-hat-cowboy'></i>
-				</span>
-			</div>
 			<div className='content'>
 				<div className='quote-text inner'>
 					<h1>{props.joke}</h1>
