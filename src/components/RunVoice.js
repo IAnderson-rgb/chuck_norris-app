@@ -5,10 +5,10 @@ import '../assets/css/noscript.css';
 
 
 const RunVoice = (props) => {
+	const synth = window.speechSynthesis;
 	const speakBtn = document.getElementById('btn-speak');
 	const hasOptions = document.createElement('option');
   const voiceSelect = document.querySelector('select');
-  const synth = window.speechSynthesis;
   let voices = [];
   
   function populateVoiceList() {
@@ -24,7 +24,7 @@ const RunVoice = (props) => {
     }
 	}
 
-	if (!hasOptions) {
+	if (!voices.length) {
 		populateVoiceList();
 	}
 	
@@ -35,7 +35,6 @@ const RunVoice = (props) => {
   function tellJoke(params) {
 		const selectedOption = voiceSelect;
 		if (selectedOption !== null) {
-			console.log('Joke:', params);
 			const utterThis = new SpeechSynthesisUtterance(params);
 			selectedOption.selectedOptions[0].getAttribute('data-name');
 			for (let i = 0; i < voices.length; i++) {

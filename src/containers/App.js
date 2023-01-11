@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import Title from '../components/Title';
-import JokePanel from '../components/JokePanel';
+import JokePanelTwo from '../components/JokePanelTwo';
+import JokePanelOne from '../components/JokePanelOne'
 import SearchBox from '../components/SearchBox';
 import Scroll from	'../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -12,6 +13,8 @@ import './App.css';
 
 const apiUrl = 'https://api.chucknorris.io/jokes/random';
 const audio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
+const audioBleep = new Audio('https://www.fesliyanstudios.com/play-mp3/5444');
+let vessel = 0;
 
 class App extends PureComponent {
 	constructor(props) {
@@ -34,7 +37,7 @@ class App extends PureComponent {
 
 	onClicknewJoke = (e) => {
 		audio.play();
-		e.stopPropagation();
+		// e.stopPropagation();
 		try {
 			fetch(apiUrl)
 				.then((resp) => resp.json())
@@ -49,37 +52,63 @@ class App extends PureComponent {
 		const twitterUrl = `https://twitter.com/intent/tweet?text=${this.state.jokeText}`;
 		window.open(twitterUrl, '_blank');
 	};
+
+	onClickReload = (e) => {
+		console.log('I was clicked');
+		audio.play();
+		vessel = 1;
+		// window.location.reload();
+		
+	}
 	
 	componentDidUpdate() {}
 
 	render() {
 		const { jokeText } = this.state;
-		console.log('render', this.state);
-		return !jokeText ? (
-			<h1>..Loading</h1>
-		) : (
-			<div className='tc'>
-				<Scroll>
-					<header id='header'>
-						<Title />
-						<RunVoice joke={jokeText} />
-						<JokePanel joke={jokeText} />
-						<nav>
-							<ul>
-								<TwitterBtn tweetJoke={this.invokeTwitter} />
-								<NewBtn clickNewJoke={this.onClicknewJoke} />
-								<li>
-									<div>
-										Select Voice: <select name='' id='voiceList'></select>
-									</div>
-								</li>
-							</ul>
-						</nav>
-					</header>
-					<SearchBox searchChange={this.onSearchChange} />
-				</Scroll>
-			</div>
-		);
+		let arr = ['bonjour', 'europe', 'c++'];
+		function contains(target, pattern) {
+			
+			pattern.forEach(function (word) {
+				vessel = vessel + target.includes(word);
+			});
+			return vessel === 1;
+		}
+		if (contains(jokeText, arr) === true) {
+			audioBleep.play();
+			console.log('It worked!');
+			return (
+				<div className='tc'>
+					<JokePanelOne reload={this.onClickReload}/>
+				</div>
+			);
+		} else {
+			return !jokeText ? (
+				<h1>..Loading</h1>
+			) : (
+				<div className='tc'>
+					<Scroll>
+						<header id='header'>
+							<Title />
+							<RunVoice joke={jokeText} />
+							<JokePanelTwo joke={jokeText} />
+							<nav>
+								<ul>
+									<TwitterBtn tweetJoke={this.invokeTwitter} />
+									<NewBtn clickNewJoke={this.onClicknewJoke} />
+									<li>
+										<div>
+											Select Voice: <select name='' id='voiceList'></select>
+										</div>
+									</li>
+								</ul>
+							</nav>
+						</header>
+						<SearchBox searchChange={this.onSearchChange} />
+					</Scroll>
+				</div>
+			);
+		}
+		
 	}
 }
 
