@@ -5,8 +5,10 @@ import '../assets/css/noscript.css';
 
 
 const RunVoice = (props) => {
-  const synth = window.speechSynthesis;
+	const speakBtn = document.getElementById('btn-speak');
+	const hasOptions = document.createElement('option');
   const voiceSelect = document.querySelector('select');
+  const synth = window.speechSynthesis;
   let voices = [];
   
   function populateVoiceList() {
@@ -22,7 +24,10 @@ const RunVoice = (props) => {
     }
 	}
 
-	populateVoiceList();
+	if (!hasOptions) {
+		populateVoiceList();
+	}
+	
 	if (speechSynthesis.onvoiceschanged !== undefined) {
 		speechSynthesis.onvoiceschanged = populateVoiceList;
 	}
@@ -41,12 +46,17 @@ const RunVoice = (props) => {
 			synth.speak(utterThis);
 		}
 	}
-		
+
+		if (speakBtn) {
+		speakBtn.onclick = (event) => {
+			tellJoke(props.joke)
+		}
+	}
 
   return (
     <div className='logo'>
 				<span className='icon'>
-					<a href='#speak' onClick={tellJoke(props.joke)}>
+					<a href='#speak' id='btn-speak'>
 						<i className='fas fa-hat-cowboy grow'></i>
 					</a>
 				</span>

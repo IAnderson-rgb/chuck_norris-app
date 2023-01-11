@@ -11,6 +11,7 @@ import './App.css';
 
 
 const apiUrl = 'https://api.chucknorris.io/jokes/random';
+const audio = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
 
 class App extends PureComponent {
 	constructor(props) {
@@ -31,7 +32,9 @@ class App extends PureComponent {
 		}
 	}
 
-	onClicknewJoke = () => {
+	onClicknewJoke = (e) => {
+		audio.play();
+		e.stopPropagation();
 		try {
 			fetch(apiUrl)
 				.then((resp) => resp.json())
@@ -42,6 +45,7 @@ class App extends PureComponent {
 	};
 
 	invokeTwitter = (e) => {
+		audio.play();
 		const twitterUrl = `https://twitter.com/intent/tweet?text=${this.state.jokeText}`;
 		window.open(twitterUrl, '_blank');
 	};
