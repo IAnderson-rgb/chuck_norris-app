@@ -37,7 +37,7 @@ class App extends PureComponent {
 
 	onClicknewJoke = (e) => {
 		audio.play();
-		// e.stopPropagation();
+		e.stopPropagation();
 		try {
 			fetch(apiUrl)
 				.then((resp) => resp.json())
@@ -57,7 +57,7 @@ class App extends PureComponent {
 		console.log('I was clicked');
 		audio.play();
 		vessel = 1;
-		// window.location.reload();
+		window.location.reload();
 		
 	}
 	
@@ -65,7 +65,7 @@ class App extends PureComponent {
 
 	render() {
 		const { jokeText } = this.state;
-		let arr = ['bonjour', 'europe', 'c++'];
+		let arr = ['fuck', 'dick', 'penise', 'cock', 'balls', 'masturbate', 'sex', 'bitch', 'erection', 'shit', 'blowjob', 'condoms', 'wife', 'husband', 'tits', 'god'];
 		function contains(target, pattern) {
 			
 			pattern.forEach(function (word) {
@@ -73,7 +73,7 @@ class App extends PureComponent {
 			});
 			return vessel === 1;
 		}
-		if (contains(jokeText, arr) === true) {
+		if (contains(jokeText.toLowerCase(), arr) === true) {
 			audioBleep.play();
 			console.log('It worked!');
 			return (

@@ -7,7 +7,6 @@ import '../assets/css/noscript.css';
 const RunVoice = (props) => {
 	const synth = window.speechSynthesis;
 	const speakBtn = document.getElementById('btn-speak');
-	const hasOptions = document.createElement('option');
   const voiceSelect = document.querySelector('select');
   let voices = [];
   
@@ -56,7 +55,7 @@ const RunVoice = (props) => {
     <div className='logo'>
 				<span className='icon'>
 					<a href='#speak' id='btn-speak'>
-						<i className='fas fa-hat-cowboy grow'></i>
+						<i className='fas fa-hat-cowboy'></i>
 					</a>
 				</span>
 			</div>
