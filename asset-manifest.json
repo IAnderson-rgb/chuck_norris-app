@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/chuck_norris-app/static/css/main.7ed41a71.css",
-    "main.js": "/chuck_norris-app/static/js/main.60999ddc.js",
+    "main.js": "/chuck_norris-app/static/js/main.9db62829.js",
     "static/js/787.6d6a7c8c.chunk.js": "/chuck_norris-app/static/js/787.6d6a7c8c.chunk.js",
     "static/media/fa-solid-900.svg": "/chuck_norris-app/static/media/fa-solid-900.7a8b4f130182d19a2d7c.svg",
     "static/media/fa-brands-400.svg": "/chuck_norris-app/static/media/fa-brands-400.2f517e09eb2ca6650ff5.svg",
@@ -21,11 +21,11 @@
     "static/media/fa-regular-400.woff2": "/chuck_norris-app/static/media/fa-regular-400.7a3337626410ca2f4071.woff2",
     "index.html": "/chuck_norris-app/index.html",
     "main.7ed41a71.css.map": "/chuck_norris-app/static/css/main.7ed41a71.css.map",
-    "main.60999ddc.js.map": "/chuck_norris-app/static/js/main.60999ddc.js.map",
+    "main.9db62829.js.map": "/chuck_norris-app/static/js/main.9db62829.js.map",
     "787.6d6a7c8c.chunk.js.map": "/chuck_norris-app/static/js/787.6d6a7c8c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7ed41a71.css",
-    "static/js/main.60999ddc.js"
+    "static/js/main.9db62829.js"
   ]
 }
