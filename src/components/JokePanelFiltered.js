@@ -8,7 +8,7 @@ import TwitterBtn from "./TwitterBtn";
 import SearchBox from "./SearchBox";
 
 
-const JokePanelOne = ({reload}) => {
+const JokePanelFiltered = ({reload}) => {
 
 	return (
 		<Scroll>
@@ -45,4 +45,4 @@ const JokePanelOne = ({reload}) => {
 	);
 }
 
-export default JokePanelOne;
+export default JokePanelFiltered;
