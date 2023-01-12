@@ -95,9 +95,7 @@ class App extends PureComponent {
 				</div>
 			);
 		} else {
-			return !jokeText ? (
-				<h1>..Loading</h1>
-			) : (
+			return (
 				<div className='tc'>
 					<Scroll>
 						<header id='header'>
