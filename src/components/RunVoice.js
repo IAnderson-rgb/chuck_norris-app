@@ -11,7 +11,7 @@ const RunVoice = (props) => {
   let voices = [];
   
   function populateVoiceList() {
-    if (voiceSelect !== null) {
+    if (voiceSelect !== null && voiceSelect.childElementCount < 1) {
       voices = synth.getVoices();
       for (let i = 0; i < voices.length; i++) {
         const option = document.createElement('option');
@@ -23,9 +23,9 @@ const RunVoice = (props) => {
     }
 	}
 
-	if (voices.length === 0) {
+	
 		populateVoiceList();
-	}
+	
 	
 	if (speechSynthesis.onvoiceschanged !== undefined) {
 		speechSynthesis.onvoiceschanged = populateVoiceList;
