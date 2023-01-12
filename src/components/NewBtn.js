@@ -10,7 +10,8 @@ function NewBtn ({clickNewJoke}) {
 		<li >
 			<a 
 			id='new-quote' 
-			href='#update' 
+			href='#update'
+			title='Click for a new joke!' 
 			onClick={clickNewJoke}
 			>
 				New

@@ -17,7 +17,7 @@ const JokePanelOne = ({reload}) => {
 				<header id='header'>
 					<div className='content'>
 						<div className='quote-text inner'>
-							<h1>#@%*!</h1>
+							<h1 className='anim-typewriter'>#@%*!</h1>
 							<p>
 								Sorry, this joke may contain inappropriate language for minors.
 							</p>

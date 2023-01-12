@@ -14,10 +14,10 @@ const SearchBox = ({searchChange}) => {
 				placeholder='search'
 				onChange={searchChange}
 			/>
-			<span className='tooltiptext'>
+			<span className='top'>
 				Sorry! Search is still under constructin!
-				<i className='fas fa-hard-hat'></i>
 			</span>
+			<i className='pa2 fas fa-hard-hat'></i>
 		</div>
 	);
 }

@@ -57,6 +57,10 @@ const RunVoice = (props) => {
 					<a href='#speak' id='btn-speak'>
 						<i className='fas fa-hat-cowboy'></i>
 					</a>
+					<>
+					Speak
+					</>
+					
 				</span>
 			</div>
   );

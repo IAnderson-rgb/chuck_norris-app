@@ -10,7 +10,7 @@ const JokePanel = (props) => {
 		<header id='header'>
 			<div className='content'>
 				<div className='quote-text inner'>
-					<h1>{props.joke}</h1>
+					<h1 className="anim-typewriter">{props.joke}</h1>
 					<p>{/* place category vule here */}</p>
 				</div>
 			</div>

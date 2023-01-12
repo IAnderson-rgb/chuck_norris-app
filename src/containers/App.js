@@ -58,16 +58,34 @@ class App extends PureComponent {
 		audio.play();
 		vessel = 1;
 		window.location.reload();
-		
-	}
-	
+	};
+
 	componentDidUpdate() {}
 
 	render() {
 		const { jokeText } = this.state;
-		let arr = ['fuck', 'dick', 'penise', 'cock', 'balls', 'masturbate', 'sex', 'bitch', 'erection', 'shit', 'blowjob', 'condoms', 'wife', 'husband', 'tits', 'god'];
+		let arr = [
+			'fuck',
+			'dick',
+			'penise',
+			'penis',
+			'cock',
+			'balls',
+			'masturbate',
+			'sex',
+			'bitch',
+			'erection',
+			'shit',
+			'blowjob',
+			'condoms',
+			'wife',
+			'husband',
+			'tits',
+			'sack',
+			'gay',
+			'god',
+		];
 		function contains(target, pattern) {
-			
 			pattern.forEach(function (word) {
 				vessel = vessel + target.includes(word);
 			});
@@ -78,7 +96,7 @@ class App extends PureComponent {
 			console.log('It worked!');
 			return (
 				<div className='tc'>
-					<JokePanelOne reload={this.onClickReload}/>
+					<JokePanelOne reload={this.onClickReload} />
 				</div>
 			);
 		} else {
@@ -90,7 +108,9 @@ class App extends PureComponent {
 						<header id='header'>
 							<Title />
 							<RunVoice joke={jokeText} />
-							<JokePanelTwo joke={jokeText} />
+							<ErrorBoundary>
+								<JokePanelTwo joke={jokeText} />
+							</ErrorBoundary>
 							<nav>
 								<ul>
 									<TwitterBtn tweetJoke={this.invokeTwitter} />
@@ -108,7 +128,6 @@ class App extends PureComponent {
 				</div>
 			);
 		}
-		
 	}
 }
 

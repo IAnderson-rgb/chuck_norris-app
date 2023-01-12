@@ -8,7 +8,7 @@ const Title = () => {
 	return (
 		<div className='logo quote-container'>
 			<span className='icon p2'>
-				Brain<i className='top-pa4 fa fa-brain'>{` Extract`}</i>
+				Brain<i className='top-pa4 fa fa-brain blink_me'>{` Extract`}</i>
 			</span>
 		</div>
 	);
