@@ -23,7 +23,7 @@ const RunVoice = (props) => {
     }
 	}
 
-	if (!voices.length) {
+	if (voices.length === 0) {
 		populateVoiceList();
 	}
 	

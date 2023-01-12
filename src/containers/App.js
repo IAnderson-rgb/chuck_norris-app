@@ -4,6 +4,7 @@ import JokePanelTwo from '../components/JokePanelTwo';
 import JokePanelOne from '../components/JokePanelOne'
 import SearchBox from '../components/SearchBox';
 import Scroll from	'../components/Scroll';
+import {censor} from '../assets/censor';
 import ErrorBoundary from '../components/ErrorBoundary';
 import NewBtn from '../components/NewBtn';
 import TwitterBtn from '../components/TwitterBtn';
@@ -37,6 +38,10 @@ class App extends PureComponent {
 
 	onClicknewJoke = (e) => {
 		audio.play();
+		var el = document.getElementById('jokePanelTwo');
+		el.style.animation = 'none';
+		el.focus(); /* trigger reflow */
+		el.style.animation = null; 
 		e.stopPropagation();
 		try {
 			fetch(apiUrl)
@@ -56,7 +61,7 @@ class App extends PureComponent {
 	onClickReload = (e) => {
 		console.log('I was clicked');
 		audio.play();
-		vessel = 1;
+		vessel = 0;
 		window.location.reload();
 	};
 
@@ -64,27 +69,8 @@ class App extends PureComponent {
 
 	render() {
 		const { jokeText } = this.state;
-		let arr = [
-			'fuck',
-			'dick',
-			'penise',
-			'penis',
-			'cock',
-			'balls',
-			'masturbate',
-			'sex',
-			'bitch',
-			'erection',
-			'shit',
-			'blowjob',
-			'condoms',
-			'wife',
-			'husband',
-			'tits',
-			'sack',
-			'gay',
-			'god',
-		];
+		let arr = censor;
+		console.log('Log', arr);
 		function contains(target, pattern) {
 			pattern.forEach(function (word) {
 				vessel = vessel + target.includes(word);
@@ -93,7 +79,7 @@ class App extends PureComponent {
 		}
 		if (contains(jokeText.toLowerCase(), arr) === true) {
 			audioBleep.play();
-			console.log('It worked!');
+			console.log('working!');
 			return (
 				<div className='tc'>
 					<JokePanelOne reload={this.onClickReload} />
