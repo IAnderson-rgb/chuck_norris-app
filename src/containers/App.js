@@ -74,7 +74,6 @@ class App extends PureComponent {
 	render() {
 		const { jokeText } = this.state;
 		let arr = censor;
-		console.log('Log', arr);
 		function contains(target, pattern) {
 			pattern.forEach(function (word) {
 				vessel = vessel + target.includes(word);
