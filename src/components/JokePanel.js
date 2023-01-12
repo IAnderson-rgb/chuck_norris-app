@@ -5,13 +5,13 @@ import '../assets/css/noscript.css';
 
 
 
-const JokePanelTwo = (props) => {
+const JokePanel = (props) => {
 	
 	return (
 		<header id='header'>
 			<div className='content'>
 				<div className='quote-text inner'>
-					<h1 className="anim-typewriter" id='jokePanelTwo'>{props.joke}</h1>
+					<h1 className="anim-typewriter" id='jokePanel'>{props.joke}</h1>
 					<p>{/* place category vule here */}</p>
 				</div>
 			</div>
@@ -19,4 +19,4 @@ const JokePanelTwo = (props) => {
 	);
 }
 
-export default JokePanelTwo;
+export default JokePanel;

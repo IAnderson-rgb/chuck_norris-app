@@ -5,6 +5,8 @@ import '../assets/css/noscript.css';
 
 
 const RunVoice = (props) => {
+	//This all could possably be done by making a single call to an API with the string. I'm not sure what would be less expensive however, as we are not 
+	//rerendering the page here just replacing values, and loops are looping over each thing only once -- O(n). IA
 	const synth = window.speechSynthesis;
 	const speakBtn = document.getElementById('btn-speak');
   const voiceSelect = document.querySelector('select');
@@ -22,10 +24,8 @@ const RunVoice = (props) => {
       }
     }
 	}
-
 	
 		populateVoiceList();
-	
 	
 	if (speechSynthesis.onvoiceschanged !== undefined) {
 		speechSynthesis.onvoiceschanged = populateVoiceList;
