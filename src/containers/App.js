@@ -67,6 +67,10 @@ class App extends PureComponent {
 
 	componentDidUpdate() {}
 
+	// onSearchChange = (event) => {
+	// 	this.setState({ searchfield: event.target.value });
+	// };
+
 	render() {
 		const { jokeText } = this.state;
 		let arr = censor;
