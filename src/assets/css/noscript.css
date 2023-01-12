@@ -38,22 +38,26 @@
 
 	/* Loader */
 
-	.loader {
-    border: 16px solid #ccc;
-    border-top: 16px solid #333;
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    animation: spin 1.5s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0def);}
-    100% { transform: rotate(360deg);}
-  }
-
-@media screen and (max-width: 1000px) {
-    .quote-container {
-        margin: auto 10px;
-    }
-}
+		 .loader {
+	    border: 16px solid #ccc;
+	    border-top: 16px solid #333;
+	    border-radius: 50%;
+	    height: 100px;
+	    width: 100px;
+	    animation: spin 1.5s linear infinite;
+	  }
+	  
+	  @keyframes spin {
+	    0% { transform: rotate(0def);}
+	    100% { transform: rotate(360deg);}
+	  }
+	
+	@media screen and (max-width: 1000px) {
+	    .quote-container {
+	        margin: auto 10px;
+	    }
+	}
+	
+	/* .hidden {
+		display: none;
+	} */
