@@ -1,5 +1,13 @@
 # Chuck Norris App
 
+
+
+#
+
+Chuck Norris App is a one page web application designed to tell Chuck Norris jokes to your heart's content.
+
+#
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
