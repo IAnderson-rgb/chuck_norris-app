@@ -5,7 +5,7 @@
 
 #
 
-Chuck Norris App is a one page web application designed to tell Chuck Norris jokes to your heart's content.
+The Chuck Norris App is a one page web application designed to tell Chuck Norris jokes to your heart's content.
 
 #
 
