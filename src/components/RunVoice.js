@@ -13,7 +13,7 @@ const RunVoice = (props) => {
   let voices = [];
   
   function populateVoiceList() {
-    if (voiceSelect !== null && voiceSelect.childElementCount < 1) {
+    if (voiceSelect !== null) {
       voices = synth.getVoices();
       for (let i = 0; i < voices.length; i++) {
         const option = document.createElement('option');
@@ -27,15 +27,16 @@ const RunVoice = (props) => {
 	
 		populateVoiceList();
 	
-	if (speechSynthesis.onvoiceschanged !== undefined) {
+	if (speechSynthesis.onvoiceschanged !== null) {
 		speechSynthesis.onvoiceschanged = populateVoiceList;
 	}
 
   function tellJoke(params) {
-		const selectedOption = voiceSelect;
+		let selectedOption;
 		if (selectedOption !== null) {
 			const utterThis = new SpeechSynthesisUtterance(params);
-			selectedOption.selectedOptions[0].getAttribute('data-name');
+			const selectedOption =
+			voiceSelect.selectedOptions[0].getAttribute('data-name');
 			for (let i = 0; i < voices.length; i++) {
 				if (voices[i].name === selectedOption) {
 					utterThis.voice = voices[i];

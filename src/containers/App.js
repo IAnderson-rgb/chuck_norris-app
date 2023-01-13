@@ -39,7 +39,7 @@ class App extends PureComponent {
 //This is an expensive solution and may cause blockage to the user. A better solution would need to be implemented if scaled. IA
 	onClicknewJoke = (e) => {
 		audio.play();
-		var el = document.getElementById('jokePanel');
+		let el = document.getElementById('jokePanel');
 		el.style.animation = 'none';
 		el.getClientRects(); /* trigger reflow */
 		el.style.animation = null; 
