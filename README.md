@@ -1,6 +1,7 @@
 # Chuck Norris App
 
-![2023-01-12_22-58-29](https://user-images.githubusercontent.com/60550263/212237597-a9d7b2bd-5219-49b3-aa20-5552ae54bf7a.gif)
+
+https://user-images.githubusercontent.com/60550263/212238647-1068d20e-82e7-4496-b818-4f65589cccbf.mp4
 
 
 #
